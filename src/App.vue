@@ -1,5 +1,9 @@
 <template>
-  <h1 class="text-3xl font-lato font-bold underline">
-    Hello world!
-  </h1>
+	<router-view/>
 </template>
+
+<script>
+export default {
+	name: 'My Storage',
+};
+</script>
