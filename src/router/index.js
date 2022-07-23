@@ -13,7 +13,23 @@ const routes = [
 		path: '/',
 		name: 'home',
 		meta: {
-			title: 'My Storage',
+			title: 'Home',
+		},
+		component: () => import('../views/HomeView.vue'),
+	},
+	{
+		path: '/project',
+		name: 'project',
+		meta: {
+			title: 'Project',
+		},
+		component: () => import('../views/HomeView.vue'),
+	},
+	{
+		path: '/blog',
+		name: 'blog',
+		meta: {
+			title: 'Blog',
 		},
 		component: () => import('../views/HomeView.vue'),
 	},

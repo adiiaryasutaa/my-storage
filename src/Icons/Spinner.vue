@@ -22,10 +22,10 @@ export default {
 	},
 	setup(props) {
 		const trackColor = ref(props.trackColor ?? 'slate');
-		const color = ref(props.thumbColor ?? 'indigo');
+		const thumbColor = ref(props.thumbColor ?? 'indigo');
 		const size = ref(props.size ?? 5);
 
-		return { trackColor, size };
+		return { trackColor, thumbColor, size };
 	},
 };
 </script>

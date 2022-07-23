@@ -1,8 +1,17 @@
 import { auth } from '../../database/firebase';
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import router from '@/router';
 
-onAuthStateChanged(auth, user => router.push({ name: user ? 'home' : 'login' }));
+auth.onAuthStateChanged(
+	user => router.push({ name: user ? 'home' : 'login' }),
+);
+
+/**
+ * Get current user
+ *
+ * @returns {User}
+ */
+export const getUser = () => auth.currentUser;
 
 /**
  * Authenticate user.
@@ -24,5 +33,5 @@ export const authenticate = (email, password) => {
  * @returns {Promise<void>}
  */
 export const logout = () => {
-	return signOut(auth);
+	return auth.signOut();
 };
