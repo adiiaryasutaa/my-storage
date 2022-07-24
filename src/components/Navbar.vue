@@ -2,9 +2,11 @@
 import { getUser, logout } from '../../app/services/Authentication';
 import { ref } from 'vue';
 import { auth } from '../../database/firebase';
+import MenuIcon from '@/Icons/Menu';
 
 export default {
 	name: 'Navbar',
+	components: { MenuIcon },
 	setup() {
 		const isLoggedIn = ref(!!getUser());
 		const showNavbarDrawer = ref(false);
@@ -24,24 +26,19 @@ export default {
 
 <template>
 	<nav class="navbar">
-		<div class="container flex flex-wrap justify-between items-center h-full mx-auto">
-			<div class="navbar-brand">
-				<img :src="require('@/assets/logo.png')" class="mr-3 h-6 sm:h-9" alt="My Storage Logo"/>
+		<div class="container flex flex-wrap justify-between items-center h-full mx-auto md:space-x-4">
+			<div class="navbar-brand space-x-1">
+				<img :src="require('@/assets/logo.png')" class="h-6 sm:h-9" alt="My Storage Logo"/>
 				<h1 class="self-center text-xl font-lato font-semibold whitespace-nowrap">My Storage</h1>
 			</div>
 			<template v-if="isLoggedIn">
-				<button @click="toggleNavbarDrawer"
-								class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
-					<svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-							 xmlns="http://www.w3.org/2000/svg">
-						<path fill-rule="evenodd"
-									d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-									clip-rule="evenodd"></path>
-					</svg>
+				<button @click="toggleNavbarDrawer" class="navbar-drawer-toggler">
+					<MenuIcon :size="6"/>
 				</button>
-				<div v-show="showNavbarDrawer" class="navbar-drawer">
-					<div class="flex flex-col divide-y divide-slate-200 md:flex-row md:space-x-8 md:mt-0 md:text-sm">
-						<div class="flex flex-col mb-2">
+				<div :class="{'hidden': !showNavbarDrawer}" class="grow navbar-drawer">
+					<div
+						class="flex flex-col justify-between divide-y divide-slate-200 w-full md:flex-row md:divide-y-0 md:mt-0 md:text-sm">
+						<div class="flex flex-col mb-2 md:justify-between md:items-center md:flex-row md:space-x-2 md:mb-0">
 							<router-link
 								:to="{ name: 'home' }"
 								class="navbar-link"
@@ -58,7 +55,7 @@ export default {
 							>Blog
 							</router-link>
 						</div>
-						<div class="pt-2">
+						<div class="pt-2 md:pt-0">
 							<button
 								@click="logout"
 								class="logout-button"
@@ -74,30 +71,34 @@ export default {
 
 <style scoped>
 .navbar {
-	@apply bg-white border-b border-gray-200 h-16 px-2 py-2.5 sm:px-4;
+	@apply bg-white border-b border-slate-200 h-16 px-2 py-2.5 sm:px-4;
 }
 
 .navbar-brand {
 	@apply flex items-center;
 }
 
+.navbar-drawer-toggler {
+	@apply inline-flex items-center p-2 text-sm text-slate-500 rounded md:hidden hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-200;
+}
+
 .navbar-drawer {
-	@apply w-full border border-slate-200 rounded mt-4 p-2 md:block md:w-auto;
+	@apply w-full border border-slate-200 rounded mt-6 p-2 md:block md:flex md:w-auto md:border-0 md:mt-0 md:p-0;
 }
 
 .navbar-link {
-	@apply block font-lato rounded py-2 px-4 md:bg-transparent md:p-0;
+	@apply block font-lato font-bold rounded py-2 px-4 md:bg-transparent;
 }
 
 .navbar-link:not(.router-link-active) {
-	@apply text-slate-900 hover:bg-indigo-600 hover:text-slate-50 active:bg-indigo-700;
+	@apply text-slate-900 hover:bg-indigo-600 hover:text-slate-50 active:bg-indigo-700 md:bg-transparent md:text-slate-600 md:hover:text-indigo-700 md:hover:bg-transparent md:active:text-indigo-800;
 }
 
 .router-link-active, .router-link-exact-active {
-	@apply bg-indigo-800 text-slate-50
+	@apply bg-indigo-800 text-slate-50 md:bg-transparent md:text-indigo-800;
 }
 
 .logout-button {
-	@apply w-fit rounded text-slate-900 font-lato font-bold px-4 py-2 hover:bg-indigo-600 hover:text-slate-50 active:bg-indigo-800 focus:ring focus:ring-indigo-400;
+	@apply border border-indigo-600 rounded text-slate-900 font-lato font-bold w-fit px-4 py-2 hover:bg-indigo-700 hover:text-slate-50 active:bg-indigo-800 focus:ring focus:ring-indigo-400;
 }
 </style>
