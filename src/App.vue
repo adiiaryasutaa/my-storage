@@ -1,15 +1,19 @@
 <script>
 import Navbar from '@/components/Navbar';
-import { getUser } from '../app/services/Authentication';
-import { ref } from 'vue';
+import Footer from '@/components/Footer';
 
 export default {
 	name: 'My Storage',
-	components: { Navbar },
+	components: { Footer, Navbar },
 };
 </script>
 
 <template>
-	<Navbar/>
-	<router-view/>
+	<div class="flex flex-col min-h-screen">
+		<Navbar/>
+		<main class="grow">
+			<router-view/>
+		</main>
+		<Footer/>
+	</div>
 </template>
