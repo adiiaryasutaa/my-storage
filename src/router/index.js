@@ -23,7 +23,15 @@ const routes = [
 		meta: {
 			title: 'Project',
 		},
-		component: () => import('../views/HomeView.vue'),
+		component: () => import('../views/ProjectView.vue'),
+	},
+	{
+		path: '/project/add',
+		name: 'add-project',
+		meta: {
+			title: 'Project',
+		},
+		component: () => import('../views/Project/Add.vue'),
 	},
 	{
 		path: '/blog',
