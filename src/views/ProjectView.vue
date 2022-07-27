@@ -1,5 +1,5 @@
 <script>
-import PlusIcon from '@/Icons/Plus';
+import PlusIcon from '@/icons/Plus';
 
 export default {
 	name: 'ProjectView',

@@ -1,5 +1,5 @@
 <script>
-import SpinnerIcon from '@/Icons/Spinner';
+import SpinnerIcon from '@/icons/Spinner';
 import { ref } from 'vue';
 import FileInput from '@/components/Inputs/FileInput';
 

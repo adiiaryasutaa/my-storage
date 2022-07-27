@@ -3,7 +3,7 @@ import Input from '@/components/Input';
 import Alert from '@/components/Alert';
 import { ref } from 'vue';
 import { authenticate } from '../../app/services/Authentication';
-import IconSpinner from '@/Icons/Spinner';
+import IconSpinner from '@/icons/Spinner';
 
 export default {
 	name: 'LoginView',

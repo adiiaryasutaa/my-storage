@@ -2,7 +2,7 @@
 import { getUser, logout } from '../../app/services/Authentication';
 import { ref } from 'vue';
 import { auth } from '../../database/firebase';
-import MenuIcon from '@/Icons/Menu';
+import MenuIcon from '@/icons/Menu';
 
 export default {
 	name: 'Navbar',
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <template>
-	<nav class="navbar">
+	<nav class="navbar z-10">
 		<div class="container flex flex-wrap justify-between items-center h-full mx-auto md:space-x-4">
 			<div class="navbar-brand space-x-1">
 				<img :src="require('@/assets/logo.png')" class="h-6 sm:h-9" alt="My Storage Logo"/>
