@@ -1,5 +1,5 @@
 <script>
-import { getUser, logout } from '../../app/services/Authentication';
+import { getUser, logout } from '../services/Authentication';
 import { ref } from 'vue';
 import { auth } from '../../database/firebase';
 import MenuIcon from '@/icons/Menu';
