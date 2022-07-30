@@ -12,7 +12,10 @@ export default {
 		<div class="flex flex-col items-center space-y-4">
 			<h1 class="text-slate-900 font-lato font-bold">Add Project</h1>
 			<div class="w-full md:w-96">
-				<ProjectThumbnailInput />
+				<div>
+
+					<ProjectThumbnailInput />
+				</div>
 			</div>
 		</div>
 	</section>

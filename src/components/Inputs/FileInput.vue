@@ -1,15 +1,19 @@
 <script>
+import { ref } from 'vue';
+
 export default {
 	name: 'FileInput',
 	props: {
 		accept: String,
 	},
 	setup(props, context) {
+		const fileInput = ref('');
+
 		const emitFile = (event) => {
 			context.emit('getFile', event.target.files[0]);
 		};
 
-		return { emitFile };
+		return { fileInput, emitFile };
 	},
 };
 </script>
@@ -20,6 +24,7 @@ export default {
 			class="input-file"
 			type="file"
 			:accept="accept"
+			:ref="fileInput"
 			@change="emitFile"
 		/>
 	</div>

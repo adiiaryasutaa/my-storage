@@ -1,7 +1,8 @@
 <script>
 import SpinnerIcon from '@/icons/Spinner';
-import { ref } from 'vue';
 import FileInput from '@/components/Inputs/FileInput';
+import { ref } from 'vue';
+import { getTemporaryFileUrl, uploadAsTemporary } from '@/services/Temporary';
 
 export default {
 	name: 'ProjectThumbnailInput',
@@ -10,19 +11,34 @@ export default {
 		const previewUrl = ref('');
 		const showUploadSpinner = ref(false);
 
+		/**
+		 *
+		 * @param file {File, Blob, Uint8Array, ArrayBuffer}
+		 * @returns {Promise<void>}
+		 */
 		const uploadFile = async (file) => {
 			showUploadSpinner.value = true;
 
-			/* Upload */
+			try {
+				const uploadResult = await uploadAsTemporary(file);
+				previewUrl.value = await getTemporaryFileUrl(uploadResult.ref.name);
+			} catch (e) {
+				console.log(e.message());
+			}
 
-			/* Get Download URL */
-
-			context.emit('thumbnailDBPath', null);
+			// context.emit('thumbnailDBPath', null);
 
 			showUploadSpinner.value = false;
 		};
 
-		return { previewUrl, showUploadSpinner, uploadFile };
+		/**
+		 *
+		 */
+		const removeUploadedFile = () => {
+			previewUrl.value = '';
+		};
+
+		return { previewUrl, showUploadSpinner, uploadFile, removeUploadedFile };
 	},
 };
 </script>
@@ -31,7 +47,7 @@ export default {
 	<div class="flex flex-col space-y-2">
 		<div class="border border-slate-200 p-2">
 			<template v-if="previewUrl">
-				<div class="group relative w-fit">
+				<div @click="removeUploadedFile" class="group relative w-fit">
 					<img
 						class="rounded h-52 w-fit mb-2 group-hover:brightness-50 group-hover:cursor-pointer"
 						:src="previewUrl"

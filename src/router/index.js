@@ -31,7 +31,7 @@ const routes = [
 		meta: {
 			title: 'Project',
 		},
-		component: () => import('../views/Project/Add.vue'),
+		component: () => import('../views/Project/AddView.vue'),
 	},
 	{
 		path: '/blog',
