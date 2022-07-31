@@ -4,6 +4,7 @@ import { ref } from 'vue';
 export default {
 	name: 'FileInput',
 	props: {
+		id: String,
 		accept: String,
 	},
 	setup(props, context) {
@@ -21,6 +22,7 @@ export default {
 <template>
 	<div>
 		<input
+			:id="id"
 			class="input-file"
 			type="file"
 			:accept="accept"

@@ -1,12 +1,16 @@
 <script>
 import SpinnerIcon from '@/icons/Spinner';
+import { XIcon } from '@heroicons/vue/solid';
 import FileInput from '@/components/Inputs/FileInput';
 import { ref } from 'vue';
 import { getTemporaryFileUrl, uploadAsTemporary } from '@/services/Temporary';
 
 export default {
 	name: 'ProjectThumbnailInput',
-	components: { FileInput, SpinnerIcon },
+	props: {
+		id: String,
+	},
+	components: { FileInput, SpinnerIcon, XIcon },
 	setup(props, context) {
 		const previewUrl = ref('');
 		const showUploadSpinner = ref(false);
@@ -22,13 +26,12 @@ export default {
 			try {
 				const uploadResult = await uploadAsTemporary(file);
 				previewUrl.value = await getTemporaryFileUrl(uploadResult.ref.name);
+				context.emit('uploadedThumbnailPath', uploadResult.ref.fullPath);
 			} catch (e) {
 				console.log(e.message());
+			} finally {
+				showUploadSpinner.value = false;
 			}
-
-			// context.emit('thumbnailDBPath', null);
-
-			showUploadSpinner.value = false;
 		};
 
 		/**
@@ -44,23 +47,25 @@ export default {
 </script>
 
 <template>
-	<div class="flex flex-col space-y-2">
-		<div class="border border-slate-200 p-2">
+	<div class="flex flex-col space-y-1">
+		<label class="text-slate-600 font-medium text-sm" :for="id">Thumbnail</label>
+		<div class="border border-slate-200 rounded p-2">
 			<template v-if="previewUrl">
-				<div @click="removeUploadedFile" class="group relative w-fit">
+				<div @click="removeUploadedFile" class="group relative w-fit hover:cursor-pointer">
 					<img
-						class="rounded h-52 w-fit mb-2 group-hover:brightness-50 group-hover:cursor-pointer"
+						class="rounded h-52 w-fit mb-2 group-hover:brightness-50"
 						:src="previewUrl"
 						alt="Preview Image"
 					/>
 					<div
 						class="hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-slate-400 group-hover:inline-block"
 					>
+						<XIcon class="w-8 h-8 text-slate-600"/>
 					</div>
 				</div>
 			</template>
-			<div class="flex items-center space-x-4">
-				<FileInput accept="image/png, image/jpeg" @getFile="uploadFile"/>
+			<div class="flex items-center justify-between">
+				<FileInput :id="id" accept="image/png, image/jpeg" @getFile="uploadFile"/>
 				<SpinnerIcon v-show="showUploadSpinner" :size="6"/>
 			</div>
 		</div>

@@ -20,18 +20,17 @@ const routes = [
 	{
 		path: '/project',
 		name: 'project',
-		meta: {
-			title: 'Project',
-		},
 		component: () => import('../views/ProjectView.vue'),
-	},
-	{
-		path: '/project/add',
-		name: 'add-project',
 		meta: {
 			title: 'Project',
 		},
-		component: () => import('../views/Project/AddView.vue'),
+		children: [
+			{
+				path: 'add',
+				name: 'add-project',
+				component: () => import('../views/Project/AddView.vue'),
+			},
+		],
 	},
 	{
 		path: '/blog',
